@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Network ID="script_fx1" Version="0.0.0" AllowCompilation="1" CompileChannelAmount="4">
+  <Node FactoryPath="container.chain" ID="script_fx1" Bypassed="0" Name="RMsidechain"
+        ShowParameters="1">
+    <Nodes>
+      <Node ID="matrix" FactoryPath="routing.matrix" Bypassed="0" Comment="This is a bit annoying - in order to avoid a buffer of latency in the sidechain signal we have to swap the channels so that the send node is processed before the routing node in the setup."
+            Name="matrix">
+        <Properties>
+          <Property ID="EmbeddedData" Value="93.3o8BJ+RKIy7R22DKonLqfAF4zuRyM37KsnjS04LRLu7RMmhYfQVYjEFXfAn7M.Del.xO3TyKEvb9OP.TIMDDelgJognIoQf3y.TIMBMIMFDeFgJowvjjA.fcA9hA"/>
+        </Properties>
+        <Parameters/>
+      </Node>
+      <Node ID="multi3" FactoryPath="container.multi" Bypassed="0" Name="multi3">
+        <Nodes>
+          <Node ID="chain3" FactoryPath="container.chain" Bypassed="0" Name="chain3"
+                ShowParameters="0">
+            <Nodes>
+              <Node ID="sidechain_signal" FactoryPath="analyse.oscilloscope" Bypassed="0"
+                    NodeColour="4289884249" Name="sidechain_signal">
+                <ComplexData>
+                  <DisplayBuffers>
+                    <DisplayBuffer Index="1" EmbeddedData=""/>
+                  </DisplayBuffers>
+                </ComplexData>
+                <Parameters/>
+              </Node>
+              <Node ID="send1" FactoryPath="routing.send" Bypassed="0" Name="send1">
+                <Properties>
+                  <Property ID="Connection" Value="receive1;receive2"/>
+                </Properties>
+                <Parameters/>
+              </Node>
+            </Nodes>
+            <Parameters/>
+          </Node>
+          <Node ID="sidechain1" FactoryPath="container.sidechain" Bypassed="0"
+                Name="sidechain1">
+            <Nodes>
+              <Node ID="multi4" FactoryPath="container.multi" Bypassed="0" Name="multi4">
+                <Nodes>
+                  <Node ID="original1" FactoryPath="container.chain" Bypassed="0" NodeColour="4289878374"
+                        Name="original">
+                    <Nodes>
+                      <Node ID="sidechain2" FactoryPath="container.sidechain" Bypassed="0"
+                            Name="sidechain2">
+                        <Nodes>
+                          <Node ID="multi5" FactoryPath="container.multi" Bypassed="0" Name="multi5">
+                            <Nodes>
+                              <Node ID="original3" FactoryPath="container.chain" Bypassed="0" NodeColour="4289878374"
+                                    Name="original">
+                                <Nodes/>
+                                <Parameters/>
+                              </Node>
+                              <Node ID="original4" FactoryPath="container.chain" Bypassed="0" NodeColour="4289893977"
+                                    Name="Sidechain">
+                                <Nodes>
+                                  <Node ID="receive2" FactoryPath="routing.receive" Bypassed="0" Name="receive1">
+                                    <Parameters>
+                                      <Parameter MinValue="0.0" MaxValue="1.0" ID="Feedback" Value="1.0"/>
+                                    </Parameters>
+                                  </Node>
+                                </Nodes>
+                                <Parameters/>
+                              </Node>
+                            </Nodes>
+                            <Parameters/>
+                          </Node>
+                          <Node ID="comp1" FactoryPath="dynamics.comp" Bypassed="0" Name="comp1">
+                            <ComplexData>
+                              <DisplayBuffers>
+                                <DisplayBuffer Index="-1"/>
+                              </DisplayBuffers>
+                            </ComplexData>
+                            <Parameters>
+                              <Parameter MinValue="-100.0" MaxValue="0.0" StepSize="0.1000000014901161"
+                                         SkewFactor="5.422270774841309" ID="Threshhold" Automated="1"/>
+                              <Parameter MinValue="0.0" MaxValue="250.0" StepSize="0.1000000014901161"
+                                         SkewFactor="0.4306765496730804" ID="Attack" Automated="1"/>
+                              <Parameter MinValue="0.0" MaxValue="250.0" StepSize="0.1000000014901161"
+                                         SkewFactor="0.4306765496730804" ID="Release" Automated="1"/>
+                              <Parameter MinValue="1.000000014901161" MaxValue="32.0" StepSize="0.1000000014901161"
+                                         SkewFactor="0.2968033850193024" ID="Ratio" Automated="1"/>
+                              <Parameter MinValue="0.0" MaxValue="2.0" StepSize="1.0" ID="Sidechain" Value="2.0"/>
+                            </Parameters>
+                          </Node>
+                        </Nodes>
+                        <Parameters/>
+                      </Node>
+                    </Nodes>
+                    <Parameters/>
+                  </Node>
+                  <Node ID="original2" FactoryPath="container.chain" Bypassed="0" NodeColour="4289893977"
+                        Name="Sidechain">
+                    <Nodes>
+                      <Node ID="receive1" FactoryPath="routing.receive" Bypassed="0" Name="receive1">
+                        <Parameters>
+                          <Parameter MinValue="0.0" MaxValue="1.0" ID="Feedback" Automated="1"/>
+                        </Parameters>
+                      </Node>
+                      <Node ID="expr" FactoryPath="math.expr" Bypassed="0" Name="expr">
+                        <Properties>
+                          <Property ID="Code" Value="Math.abs(input) * (-1.0);"/>
+                          <Property ID="Debug" Value="0"/>
+                        </Properties>
+                        <Parameters>
+                          <Parameter MinValue="0.0" MaxValue="1.0" ID="Value" Value="1.0"/>
+                        </Parameters>
+                      </Node>
+                    </Nodes>
+                    <Parameters/>
+                  </Node>
+                </Nodes>
+                <Parameters/>
+              </Node>
+              <Node ID="Multiply_12_34" FactoryPath="project.Multiply_12_34" Bypassed="0"
+                    Name="Multiply_12_34">
+                <Parameters>
+                  <Parameter MinValue="0.0" MaxValue="1.0" ID="MyParameter" Value="0.5"/>
+                </Parameters>
+              </Node>
+              <Node ID="oscilloscope2" FactoryPath="analyse.oscilloscope" Bypassed="0"
+                    Name="ducksignal" NodeColour="4287639968">
+                <ComplexData>
+                  <DisplayBuffers>
+                    <DisplayBuffer Index="0" EmbeddedData=""/>
+                  </DisplayBuffers>
+                </ComplexData>
+                <Parameters/>
+              </Node>
+              <Node ID="matrix2" FactoryPath="routing.matrix" Bypassed="0" Name="matrix2">
+                <Properties>
+                  <Property ID="EmbeddedData" Value="88.3o8BJ+RKIy7R22DKonLqfAF4zuRyM37KsnjS04LRLu7RMmhYfQVYjEFXfAn7M.DefbYH3TyKEvb9OP.TIMDDeFgJognIoQv3CRRiPSRiQVR3bX..rwgM4C"/>
+                </Properties>
+                <Parameters/>
+              </Node>
+            </Nodes>
+            <Parameters/>
+          </Node>
+        </Nodes>
+        <Parameters/>
+      </Node>
+      <Node ID="matrix1" FactoryPath="routing.matrix" Bypassed="0" Comment="Reverse the initial swap"
+            Name="matrix1">
+        <Properties>
+          <Property ID="EmbeddedData" Value="93.3o8BJ+RKIy7R22DKonLqfAF4zuRyM37KsnjS04LRLu7RMmhYfQVYjEFXfAn7M.Del.xO3TyKEvb9OP.TIMDDelgJognIoQf3y.TIMBMIMFDeFgJowvjjA.fcA9hA"/>
+        </Properties>
+        <Parameters/>
+      </Node>
+    </Nodes>
+    <Parameters>
+      <Parameter ID="Threshold" MinValue="-100.0" MaxValue="0.0" StepSize="0.1000000014901161"
+                 SkewFactor="5.422270774841309" Value="-11.99999868869783">
+        <Connections>
+          <Connection NodeId="comp1" ParameterId="Threshhold"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="Attack" MinValue="0.0" MaxValue="250.0" StepSize="0.1000000014901161"
+                 SkewFactor="0.4306765496730804" Value="0.0">
+        <Connections>
+          <Connection NodeId="comp1" ParameterId="Attack"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="Release" MinValue="0.0" MaxValue="250.0" StepSize="0.1000000014901161"
+                 SkewFactor="0.4306765496730804" Value="4.000000059604644">
+        <Connections>
+          <Connection NodeId="comp1" ParameterId="Release"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="Ratio" MinValue="1.000000014901161" MaxValue="32.0" StepSize="0.1000000014901161"
+                 SkewFactor="0.2968033850193024" Value="32.0">
+        <Connections>
+          <Connection NodeId="comp1" ParameterId="Ratio"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="Ring Mod" MinValue="0.0" MaxValue="1.0" Value="1.0">
+        <Connections>
+          <Connection NodeId="receive1" ParameterId="Feedback"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="0" MinValue="0.0" MaxValue="1.0" SkewFactor="0.3010300099849701"
+                 Value="0.0">
+        <Connections/>
+      </Parameter>
+      <Parameter ID="0" MinValue="0.0" MaxValue="1.0" StepSize="1" Value="0.0">
+        <Connections/>
+      </Parameter>
+    </Parameters>
+  </Node>
+</Network>
